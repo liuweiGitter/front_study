@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue模板语法--插值</title>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+	<p>
+		<b style="color: blue">注:</b><br>值需要正确绑定才能获取数据<br> 不绑定不会渲染数据<br>
+		错误的绑定则会导致后续的标签停止被渲染<br>
+	</p>
+	<div id="textValue">
+		<b>1.文本值绑定：{{}}</b>
+		<p>{{text}}</p>
+	</div>
+	<div id="htmlValue">
+		<b>2.html值绑定：v-html属性</b>
+		<p v-html="html" />
+	</div>
+	<div id="labelProperty">
+		<b>3.标签属性值绑定：v-bind属性前缀</b>
+		<p>对于布尔值，值为null、undefined或false时为false，其它值都为true(包括'null'、'undefined'、'false'和'')</p>
+		<p>对于其它值，类似</p>
+		<button v-bind:disabled="isButtonDisabled">disabled属性的Button</button>
+		<button v-bind:style="buttonStyle">style属性的Button</button>
+	</div>
+	<div id="javaScriptEl">
+		<b>4.值的带运算的绑定：通过js表达式</b>
+		<p>对值进行四则运算、布尔运算、三元运算、关系运算、字符串拼接、函数调用等</p>
+		<p>注意，布尔运算的结果为0或1，如果需要替换，串行三元运算</p>
+		<b>文本值运算</b><br> <span>加法运算：</span><span>{{number+1}}</span><br>
+		<span>布尔运算：</span><span>{{bool1 & bool2}}</span><br> <span>三元运算：</span><span>{{bool1
+			& bool2 ? 'YES' : 'NO'}}</span><br> <span>关系运算：</span><span>{{bool1
+			& bool2 == 0}}</span><br> <span>字符串拼接：</span><span>bool1结果为{{bool1
+			? 'YES' : 'NO'}}</span><br> <span>函数调用：</span><span>{{msg.substring(3)}}</span><br>
+		<b>属性值运算</b><br>
+		<button v-bind:style="'color:'+color">style属性拼接的Button</button>
+		<button v-bind:disabled="bool1 && bool2">disabled属性布尔运算的Button</button>
+	</div>
+
+	<script>
+		new Vue({
+			el : '#textValue',
+			data : {
+				text : '<p style="color:red">Using mustaches: {{ text }}</p>'
+			}
+		})
+		new Vue({
+			el : '#htmlValue',
+			data : {
+				html : '<p style="color:red">Using v-html: {{ html }}</p>'
+			}
+		})
+		new Vue({
+			el : '#labelProperty',
+			data : {
+				/* isButtonDisabled : undefined, */
+				/* isButtonDisabled : null, */
+				/* isButtonDisabled : false, */
+				isButtonDisabled : '',
+				buttonStyle : 'background-color:green'
+			}
+		})
+		new Vue({
+			el : '#javaScriptEl',
+			data : {
+				number : 20,
+				bool1 : true,
+				bool2 : false,
+				msg : '我们的家乡',
+				color : 'blue'
+			}
+		})
+	</script>
+</body>
+</html>
