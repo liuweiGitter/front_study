@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue过滤器--管道计算</title>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+	<p>
+		<br>vue允许用户自定义过滤器函数即filters，并利用管道符对插值进行逐层过滤计算 <br>常见的用法是对输入的文本值进行格式化处理，如，大小写转换、敏感词过滤、值映射等
+	</p>
+
+	<p>
+		单参数管道，paramVar作为初始参数，经过func1计算传导至func2...，表达式的最终结果为管道最后计算的结果 <br>文本值：{{
+		paramVar | func1 | func2 | ... }} <br>属性值：v-bind:somePropertyName="paramVar
+		| func1 | func2 | ... "
+	</p>
+
+	<p>
+		多参数管道，paramVar作为初始第0个参数，每个func函数会将上一个管道的结果隐式地作为第0个参数，但每个函数还可以定义自己的额外参数
+		<br>以文本值为例：如{{ paramVar | func1('someConstant', arg2) |
+		func2(arg3) | ... }} <br>其中func1共3个参数，分别是paramVar、'someConstant'和arg2，func2则共有2个参数，分别是result
+		of func1和arg3
+	</p>
+
+	<div id="app">
+		过滤器示例：对文本首字母大写表示 <br><input v-model="message"
+			placeholder="input a value here">
+		<p>首字母大写后：{{ message | capitalize }}</p>
+	</div>
+
+	<script>
+		new Vue({
+			el : '#app',
+			data : {
+				message : ''
+			},
+			filters : {
+				capitalize : function(value) {
+					if (!value)
+						return ''
+					value = value.toString()
+					return value.charAt(0).toUpperCase() + value.slice(1)
+				}
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue控制流程--判断和循环</title>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+
+	<b>条件判断</b>
+
+	<div id="if_clause">
+		<span style="color: blue">单分支if >>> v-if指令：</span><br>
+		<span v-if="seen">现在你看到我了</span><span v-if="not_seen">现在你看不到我了</span>
+		<br>v-if指令和v-show指令有同样的作用
+	</div>
+
+	<div id="if_else_clause">
+		<span style="color: blue">if-else分支 >>> v-if、v-else指令：</span><br>
+		<span v-if="Math.random() > 0.5"> 大于0.5 </span> <span v-else>
+			小于等于0.5 </span> <br>注意，即使标签中没有插值，也必须绑定vue对象，否则，vue指令不会被解释
+	</div>
+
+	<div id="if_else_if_clause">
+		<span style="color: blue">if-else-if分支 >>>
+			v-if、v-else-if、v-else指令：</span><br>
+		<span v-if="type === 'A'"> A </span> <span v-else-if="type === 'B'">
+			B </span> <span v-else-if="type === 'C'"> C </span> <span v-else> Not
+			A/B/C </span>
+	</div>
+
+	<b>循环语句：v-for指令</b>
+	<br>
+	<span style="color: blue">语法格式1(遍历数组，按索引顺序)：</span>
+	<br>v-for="element in array"，其中array需要为数组对象，而element则表示数组元素对象
+	<br>
+	<span style="color: blue">语法格式2(遍历对象属性值，按json格式顺序)：</span>
+	<br>v-for="value in object"，其中object需要为一个对象，而value则表示对象的某个属性的值
+	<br>v-for="(value, key) in object"，其中key表示对象的某个属性的名
+	<br>v-for="(value, key, index) in object"，其中index表示对象的某个属性的索引
+	<br>
+	<span style="color: blue">语法格式3(遍历自然数，按自然数递增顺序)：</span>
+	<br>v-for="i in xxx"，其中xxx为正整数，而i则表示一个整数
+
+	<div id="for_array">
+		<span style="color: green">遍历数组</span>
+		<ol>
+			<li v-for="site in sites">{{ site.name }}</li>
+		</ol>
+	</div>
+
+	<div id="for_object">
+		<div id="for_object1">
+			<span style="color: green">遍历对象属性值</span>
+			<ul>
+				<li v-for="value in object">{{ value }}</li>
+			</ul>
+		</div>
+
+		<div id="for_object2">
+			<span style="color: green">遍历对象属性名-属性值</span>
+			<ul>
+				<li v-for="(value, key) in object">{{ key }} : {{ value }}</li>
+			</ul>
+		</div>
+
+		<div id="for_object3">
+			<span style="color: green">遍历对象属性名-属性值-索引</span>
+			<ul>
+				<li v-for="(value, key, index) in object">{{ index }}. {{ key
+					}} : {{ value }}</li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="for_number">
+		<span style="color: green">迭代整数</span>
+		<ul>
+			<li v-for="n in 10">{{ n }}</li>
+		</ul>
+	</div>
+
+	<script>
+		new Vue({
+			el : '#if_clause',
+			data : {
+				seen : true,
+				not_seen : false
+			}
+		})
+		new Vue({
+			el : '#if_else_clause'
+		})
+		new Vue({
+			el : '#if_else_if_clause',
+			data : {
+				type : 'C'
+			}
+		})
+
+		//循环
+		new Vue({
+			el : '#for_array',
+			data : {
+				sites : [ {
+					name : 'Runoob'
+				}, {
+					name : 'Google'
+				}, {
+					name : 'Taobao'
+				} ]
+			}
+		})
+		new Vue({
+			el : '#for_object',
+			data : {
+				object : {
+					name : '菜鸟教程',
+					url : 'http://www.runoob.com',
+					slogan : '学的不仅是技术，更是梦想！'
+				}
+			}
+		})
+		new Vue({
+			el : '#for_number'
+		})
+	</script>
+
+</body>
+</html>

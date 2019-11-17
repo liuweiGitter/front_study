@@ -1,0 +1,91 @@
+每个使用vue指令等语法的标签都必须绑定一个vue对象才能被vue解析
+一个vue对象的基本结构如下
+  
+	var vm = new Vue({
+        el: '#标签的id',
+        data: {
+            property1: "一个字符串对象",
+            property2: anJsObject,
+            property3: ["一个","数组","对象"]
+        },
+        methods: {
+            func1: function() {
+				//一个无参方法
+				//this指代data对象
+                return this.property1;
+            },
+			func2: function(arg1,arg2) {
+				//一个有参方法
+                return arg1 + arg2;
+            }
+        },
+		filters: {
+			//同methods，区别只在调用方式，filters的方法通过管道调用
+		},
+		computed: {
+			//计算属性：对data中的某个属性进行计算后返回一个新属性，该属性的取值方法同data属性
+			//本例演示字符串反转
+			property1Computed: function () {
+			  return this.property1.split('').reverse().join('');
+			}
+	    },
+		watch : {
+			//监听属性的变化
+			property1: function(nval, oval) {
+				alert("property1属性的旧值:"+oval+",新值:"+nval)
+			}
+		},
+		components: {
+			'自定义标签名': 组件对象
+	    }
+    })
+
+data属性也可以是一个返回对象的方法，如
+	data () {
+		return {
+				property1: "一个字符串对象",
+				property2: anJsObject,
+				property3: ["一个","数组","对象"]
+			}
+    }
+
+标签被vue对象绑定后，可以通过vue语法来引用数据对象、调用方法等
+	
+当一个标签不需要绑定data/computed、不需要调用methods、不需要管道调用filters等，但需要用到vue指令时，这个标签就是一个最简单的vue对象
+一个最简单的vue对象只包含一个el属性
+
+使用匿名的vue对象即可完成绝大部分的dom操作，如果使用命名的vue对象，还可以使用js语法访问vue对象
+vue访问其自身的属性和方法的时候都添加了$符号，以区分用户自定义的属性和方法
+如：
+	vm.$el === document.getElementById('标签的id')
+	vm.$data === data
+
+vue组件components定义中
+标签名，是任何自定义的，但非html原生的，标签名，所有大写字母(不推荐使用)将转为小写，支持_-等连字符
+组件对象则为定义的vue组件对象
+如：
+	<div id="app">
+        <my_tag></my_tag>
+        <my-tag></my-tag>
+	</div>
+
+	<script>
+		var Child1 = {
+		  template: '<h1>自定义组件1!</h1>'
+		}
+		
+		var Child2 = {
+		  template: '<h1>自定义组件2!</h1>'
+		}
+
+		new Vue({
+		  el: '#app',
+		  components: {
+			'my_tag': Child1,
+			'my-tag': Child2
+		  }
+		})
+	</script>
+
+
+

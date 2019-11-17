@@ -1,0 +1,39 @@
+Vue.js监听属性watch可以用来监听数据的变化，并支持在变化时调用函数响应变化
+监听属性变化后可以取得属性的旧值和变化后的新值
+
+方式1，使用vue构造中的watch属性来监听属性变化
+	<div id = "app">
+	 <p style = "font-size:25px;">计数器: {{ counter }}</p>
+	 <button @click = "counter++" style = "font-size:25px;">计数加1</button>
+	 <button @click = "counter+=10" style = "font-size:25px;">计数加10</button>
+	</div>
+	new Vue({
+		el: '#app',
+		data: {
+		   counter: 1
+		},
+		watch : {
+			//监听counter属性的变化
+			//函数有2个参数时，分别表示变化后的新值和之前的旧值
+			//函数也支持1个参数，表示变化后的新值
+			counter: function(nval, oval) {
+				alert("旧值:"+oval+",新值:"+nval)
+			}
+		}
+	});
+	
+方式2，使用vue对象的$watch方法来监听属性变化
+	<div id = "app">
+	 <p style = "font-size:25px;">计数器: {{ counter }}</p>
+	 <button @click = "counter++" style = "font-size:25px;">计数加1</button>
+	 <button @click = "counter+=10" style = "font-size:25px;">计数加10</button>
+	</div>
+	var vm = new Vue({
+		el: '#app',
+		data: {
+		   counter: 1
+		}
+	});
+	vm.$watch('counter', function(nval, oval) {
+		alert("旧值:"+oval+",新值:"+nval);
+	});

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue事件处理--v-on指令</title>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+
+	<b>以单击事件click为例</b>
+
+	<div id="grammar">
+		<p>{{on_grammar1}}</p>
+		<p>{{on_grammar2}}</p>
+		<p>{{on_grammar3}}</p>
+		<p>v-on指令的缩写为@，如v-on:click等价于@click</p>
+		<p>v-on指令为事件提供了进一步的后缀修饰符，如.stop阻止事件冒泡、.once事件只允许触发一次等</p>
+		<p>v-on指令为按键也提供了进一步的后缀修饰符，如".数字"表示按键的keyCode，如.13表示回车键，与此同时，
+			常用的按键也被定义了别名，如 .enter .tab .delete .esc .space .up .down .left .right
+			.ctrl .alt .shift .meta</p>
+		<p>后缀修饰符可以连用，如@keyup.13 === @keyup.enter === 回车键弹起、click.alt.67
+			=== alt+C等</p>
+	</div>
+
+	<script>
+		new Vue(
+				{
+					el : '#grammar',
+					data : {
+						on_grammar1 : '语法1：<button v-on:click="counter += 1">内置简单的js运算，如弹窗、计数等</button>',
+						on_grammar2 : '语法2：<button v-on:click="aVueMethod">绑定vue对象methods中的指定无参方法</button>',
+						on_grammar3 : '语法3：<button v-on:click="aVueMethod(\'solidParam\',$event.target.id)">绑定vue对象methods中的指定有参方法</button>'
+					}
+				})
+	</script>
+
+</body>
+</html>

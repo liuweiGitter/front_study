@@ -1,0 +1,31 @@
+当一个属性需要经过运算后插值时，可以调用函数或管道过滤器来完成，如需求"对字符串值进行反转"
+	<div id="app">
+	  {{ message.split('').reverse().join('') }}
+	</div>
+
+这种方式使得插值表达式很长，可读性和复用性很差
+进一步地，可以提取公共方法
+	<div id="app">
+	  {{ reversed(message) }}
+	</div>
+	methods: {
+		reversed : function(value){
+			return value.split('').reverse().join('')
+		}
+	}
+	
+使用methods时，在vue重新渲染标签时，函数总会重新调用执行
+如果vue对象的值经常变化，即经常需要重新解析标签，而同时，特定属性的值(比如本例中的message值)又很少变动时，方法调用的性能就会很差
+
+computed中的计算属性则是基于它的依赖缓存，只有相关依赖发生改变时才会重新取值，因此响应性能会更高(代价是需要存储缓存数据)
+一个计算后的属性和普通的data属性的取值方式没有什么区别
+	<div id="app">
+	  {{ reversedMessage }}
+	</div>
+	computed: {
+		reversedMessage : function(){
+			return message.split('').reverse().join('')
+		}
+	}
+	
+computed属性默认只有getter方法，不过也支持setter方法，这种操作很少见，不详述，参见https://www.runoob.com/vue2/vue-computed.html

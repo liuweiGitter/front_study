@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue样式绑定--v-bind指令</title>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<style>
+.active {
+	width: 400px;
+	height: 20px;
+	background: green;
+}
+
+.text-danger {
+	background: red;
+}
+</style>
+</head>
+<body>
+
+	<b>class属性名绑定--v-bind:class</b>
+
+	<div id="grammar1">
+		<p>{{class_grammar1}}</p>
+		<p>{{detail1}}</p>
+		<p>{{detail2}}</p>
+		<p>{{detail3}}</p>
+		<p>{{detail4}}</p>
+		<p>{{class_grammar2}}</p>
+		<p>{{detail5}}</p>
+		<p>{{class_grammar3}}</p>
+		<p>{{detail6}}</p>
+		<p>{{class_grammar4}}</p>
+	</div>
+
+	<div id="usage1">
+		<div class="self-class"
+			v-bind:class="{ active: isActive, 'text-danger': hasError }">属性绑定</div>
+		<div v-bind:class="classObject1">对象绑定1：data数据对象</div>
+		<div v-bind:class="classObject2">对象绑定2：computed计算对象</div>
+	</div>
+
+	<b>style属性(内联样式)绑定--v-bind:style</b>
+
+	<div id="grammar2">
+		<p>{{style_grammar1}}</p>
+		<p>{{detail1}}</p>
+		<p>{{detail2}}</p>
+		<p>{{style_grammar2}}</p>
+		<p>{{detail3}}</p>
+		<p>{{style_grammar3}}</p>
+	</div>
+
+	<div id="usage2">
+		<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">属性绑定</div>
+		<div v-bind:style="styleObject">data数据对象</div>
+	</div>
+
+
+
+
+	<script>
+		new Vue(
+				{
+					el : '#grammar1',
+					data : {
+						class_grammar1 : '语法1：<div v-bind:class="{className1:dataProperty1,className2:dataProperty2,....}"></div>',
+						detail1 : '一个标签可绑定多个class，dataPropertyX为布尔值，表示是否绑定该class属性名',
+						detail2 : 'class名带连字符时，需要用单引号引起，形如\'class-of-red\'',
+						detail3 : '标签本身也可以带自己的class属性，二者会直接合并到一起',
+						detail4 : '除了直接绑定多个class属性外，还可以绑定一个带有多个属性的对象或者计算对象，这些对象中的所有属性将作为class属性绑定',
+						class_grammar2 : '语法2：<div v-bind:class="classObject"></div>',
+						detail5 : '还可以绑定一组对象',
+						class_grammar3 : '语法3：<div v-bind:class="[classObject1,classObject2,...]"></div>',
+						detail6 : '在属性绑定时还可以进行计算',
+						class_grammar4 : '语法4：<div v-bind:class="dataProperty1?objectClass1:objectClass2"></div>'
+					}
+				})
+		new Vue({
+			el : '#usage1',
+			data : {
+				isActive : true,
+				error : {
+					value : true,
+					type : 'fatal'
+				},
+				hasError : true,
+				classObject1 : {
+					active : true,
+					'text-danger' : true
+				}
+			},
+			computed : {
+				classObject2 : function() {
+					return {
+						base : true,
+						active : this.isActive && !this.error.value,
+						'text-danger' : this.error.value
+								&& this.error.type === 'fatal',
+					}
+				}
+			}
+		})
+		new Vue(
+				{
+					el : '#grammar2',
+					data : {
+						style_grammar1 : '语法1：<div v-bind:style="{ property1: dataProperty1, property2: dataProperty2 + \'后缀\',... }"></div>',
+						detail1 : '一个style属性可绑定多个data属性，dataPropertyX为任意需要的数据类型，如数字、字符串、布尔等，绑定时可以进行拼接',
+						detail2 : '除了直接绑定多个data属性外，还可以绑定一个带有多个属性的对象或者计算对象，这些对象中的所有属性将作为style内属性绑定',
+						style_grammar2 : '语法2：<div v-bind:class="styleObject"></div>',
+						detail3 : '还可以绑定一组对象',
+						style_grammar3 : '语法3：<div v-bind:class="[styleObject1,styleObject2,...]"></div>'
+					}
+				})
+		new Vue({
+			el : '#usage2',
+			data : {
+				activeColor : 'green',
+				fontSize : 30,
+				styleObject : {
+					color : 'green',
+					fontSize : '30px'
+				}
+			}
+		})
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue表单--v-model指令和修饰符</title>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+	<p>
+		<br>v-model指令用以在表单控件元素上创建双向数据绑定，所谓双向数据绑定，即表单元素的变化会绑定到vue对象上，同时，vue对象的变化也会绑定到表单元素上<br>
+	</p>
+	<p>
+		v-model指令有很多常见的修饰符，用以进行表单数据的处理，如 <br><span style='color:blue'>v-model.lazy</span>：在默认情况下，
+		v-model在 input事件中同步输入框的值与数据，修饰符 lazy则改为在 change事件中同步 <br><span style='color:blue'>v-model.number</span>：即使是数字框，绑定到vue对象中也会是字符串，而修饰符number则可以将用户的输入值转为
+		Number类型 <br><span style='color:blue'>v-model.trim</span>：用以过滤输入本文首尾两端的空格
+	</p>
+	<p>
+		更多细节参见<a target="_blank"
+			href="https://www.runoob.com/vue2/vue-forms.html">菜鸟教程</a>
+	</p>
+</body>
+</html>

@@ -1,3 +1,76 @@
-参见
-https://cn.vuejs.org/v2/guide/syntax.html#%E6%8C%87%E4%BB%A4
-https://www.runoob.com/vue2/vue-template-syntax.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue模板语法--指令</title>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+	<p>
+		<b style="color: blue">注:</b><br>指令是带有 v- 前缀的特殊属性，用于在表达式的值改变或者标签触发了某些事件时，将某些行为应用到 DOM 上<br>
+		<br>vue指令有很多种，以下仅为基本指令<br>
+	</p>
+	<div id="htmlValue">
+		<b>1.v-html指令：绑定并渲染html格式文本为标签的值</b>
+		<p v-html="html" />
+	</div>
+	<div id="labelProperty">
+		<b>2.v-bind指令：绑定文本值为标签的属性值</b>
+		<p>对于布尔值，值为null、undefined或false时为false，其它值都为true(包括'null'、'undefined'、'false'和'')</p>
+		<p>对于其它值，类似</p>
+		<p>v-bind指令经常使用，vue特别地为其设置了缩写，即以冒号:表示</p>
+		<button v-bind:disabled="isButtonDisabled">disabled属性的Button</button>
+		<button :style="buttonStyle">style属性的Button</button>
+	</div>
+	<div id="labelShow">
+		<b>3.v-if指令：根据表达式的布尔值决定是否渲染标签</b>
+		<p v-if="seen">如果你看到我了，seen的值为true</p>
+	</div>
+	<div id="event">
+		<b>4.v-on指令：监听dom事件</b>
+		<p>v-on指令经常使用，vue特别地为其设置了缩写，即以@表示</p>
+		<a v-on:click="doSomething">单击事件</a>
+		<a @mousedown="doSomething">鼠标按下事件</a>
+	</div>
+	<p style="color: blue">动态参数：始自2.6.0，参见<a target="_blank" href="https://cn.vuejs.org/v2/guide/syntax.html#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0">动态参数</a></p>
+	<div>
+		<p>绑定动态属性名 v-bind:[attributeName]，属性名由vue对象传参动态决定</p>
+		<p>绑定动态事件名 v-on:[eventName]，事件名由vue对象传参动态决定</p>
+		<p>注：1.动态参数不区分大小写，解释时会被强转为小写 2.动态参数必须为一个非null的字符串，否则编译报错 3.动态参数不支持运算拼接，应使用计算属性替代复杂表达式</p>
+	</div>
+
+	<script>
+		new Vue({
+			el : '#htmlValue',
+			data : {
+				html : '<p style="color:red">Using v-html: {{ html }}</p>'
+			}
+		})
+		new Vue({
+			el : '#labelProperty',
+			data : {
+				/* isButtonDisabled : undefined, */
+				/* isButtonDisabled : null, */
+				/* isButtonDisabled : false, */
+				isButtonDisabled : '',
+				buttonStyle : 'background-color:green'
+			}
+		})
+		new Vue({
+			el : '#labelShow',
+			data : {
+				seen : true
+			}
+		})
+		new Vue({
+			el : '#event',
+			methods : {
+				doSomething : function(event){
+					//console.log(event);
+					alert('Hello ! '+event.target.innerHTML)
+				}
+			}
+		})
+	</script>
+</body>
+</html>
